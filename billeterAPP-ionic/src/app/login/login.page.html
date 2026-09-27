@@ -1,0 +1,22 @@
+<ion-content class="login-bg">
+  <div class="login-card">
+    <div class="brand">B</div>
+    <h1>BilleterAPP</h1>
+    <p>Inventario y clientes</p>
+
+    <ion-item lines="none">
+      <ion-input label="Correo" labelPlacement="stacked" type="email" [(ngModel)]="email" placeholder="correo@ejemplo.com"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-input label="Contraseña" labelPlacement="stacked" type="password" [(ngModel)]="password" placeholder="••••••••"></ion-input>
+    </ion-item>
+
+    <ion-text color="danger" *ngIf="error"><p class="error">{{ error }}</p></ion-text>
+
+    <ion-button expand="block" size="large" (click)="login()" [disabled]="loading">
+      {{ loading ? 'Conectando...' : 'Iniciar sesion' }}
+    </ion-button>
+
+    <small>Conectado a tu API Flask + MySQL</small>
+  </div>
+</ion-content>

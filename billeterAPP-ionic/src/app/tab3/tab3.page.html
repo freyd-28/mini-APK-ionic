@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar color="primary"><ion-title>Productos</ion-title>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+     <ion-card-header>
+         <ion-card-title>{{editingId?'Editar producto':'Nuevo producto'}}</ion-card-title>
+     </ion-card-header>
+     <ion-card-content>
+
+         <ion-input label="Nombre *" labelPlacement="stacked" [(ngModel)]="form.nombre">
+
+         </ion-input>
+         <ion-input label="Precio *" labelPlacement="stacked" type="number" [(ngModel)]="form.precio_venta">
+
+         </ion-input>
+
+         <ion-select label="Categoria *" labelPlacement="stacked" [(ngModel)]="form.id_categoria">
+             <ion-select-option *ngFor="let c of cats" [value]="c.id_categoria">
+                {{c.nombre}}
+
+             </ion-select-option>
+         </ion-select>
+
+         <ion-toggle [(ngModel)]="form.activo">Activo</ion-toggle>
+
+         <ion-button (click)="save()" [disabled]="!form.nombre || form.precio_venta<=0 || !form.id_categoria">
+             {{editingId?'Actualizar':'Crear'}}
+
+         </ion-button>
+         <ion-button fill="clear" *ngIf="editingId" (click)="nuevo()">Cancelar</ion-button>
+
+     </ion-card-content>
+  </ion-card>
+  <ion-text color="danger" *ngIf="error">
+     <p>{{error}}</p>
+  </ion-text>
+
+  <ion-list>
+     <ion-item *ngFor="let x of items">
+         <ion-label>
+            <h2>{{x.nombre}}</h2>
+             <p>${{x.precio_venta | number:'1.0-0'}} · {{catName(x.id_categoria)}} · {{x.activo?'Activo':'Inactivo'}}</p>
+         </ion-label>
+         <ion-button slot="end" fill="clear" (click)="edit(x)">Editar
+
+         </ion-button>
+         <ion-button slot="end" color="danger" fill="clear" (click)="remove(x)">Borrar
+        
+         </ion-button>
+     </ion-item>
+ </ion-list>
+
+</ion-content>

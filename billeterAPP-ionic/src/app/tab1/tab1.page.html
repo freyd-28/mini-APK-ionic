@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Clientes</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        Salir
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card class="form-card">
+
+    <ion-card-header>
+      <ion-card-title>
+        {{ editingId ? 'Editar cliente' : 'Nuevo cliente' }}
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-input
+        label="Nombre *"
+        labelPlacement="stacked"
+        [(ngModel)]="form.nombre">
+      </ion-input>
+
+      <ion-input
+        label="Documento *"
+        labelPlacement="stacked"
+        [(ngModel)]="form.documento">
+      </ion-input>
+
+      <ion-input
+        label="Teléfono"
+        labelPlacement="stacked"
+        [(ngModel)]="form.telefono">
+      </ion-input>
+
+      <ion-input
+        label="Dirección"
+        labelPlacement="stacked"
+        [(ngModel)]="form.direccion">
+      </ion-input>
+
+      <ion-button
+        (click)="save()"
+        [disabled]="!form.nombre || !form.documento">
+        {{ editingId ? 'Actualizar' : 'Crear' }}
+      </ion-button>
+
+      <ion-button
+        fill="clear"
+        *ngIf="editingId"
+        (click)="nuevo()">
+        Cancelar
+      </ion-button>
+
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-text
+    color="danger"
+    *ngIf="error">
+
+    <p>{{ error }}</p>
+
+  </ion-text>
+
+  <ion-list>
+
+    <ion-list-header>
+      <ion-label>
+        Clientes registrados
+      </ion-label>
+    </ion-list-header>
+
+    <ion-item *ngFor="let x of items">
+
+      <ion-label>
+        <h2>
+          {{ x.nombre }}
+        </h2>
+
+        <p>
+          {{ x.documento }} ·
+          {{ x.telefono || 'Sin telefono' }}
+        </p>
+
+        <p>
+          {{ x.direccion || 'Sin direccion' }}
+        </p>
+      </ion-label>
+
+      <ion-button
+        slot="end"
+        fill="clear"
+        (click)="edit(x)">
+        Editar
+      </ion-button>
+
+      <ion-button
+        slot="end"
+        color="danger"
+        fill="clear"
+        (click)="remove(x)">
+        Borrar
+      </ion-button>
+
+    </ion-item>
+
+    <ion-item
+      *ngIf="!loading && !items.length">
+
+      <ion-label>
+        No hay clientes.
+      </ion-label>
+
+    </ion-item>
+
+  </ion-list>
+
+</ion-content>

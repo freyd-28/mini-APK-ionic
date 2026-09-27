@@ -1,0 +1,7 @@
+{
+  "name": "billeterAPP",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
